@@ -4,7 +4,7 @@ import { useChatContext } from "../../../context/chatContext";
 import { useDashboardDataStore } from "../../../context/dashboardStore";
 
 export default function ChatMessage() {
-  const { user, room, state } = useChatContext();
+  const { user, room, state, setUpdate } = useChatContext();
   let [Message, setMessage] = useState([]);
   const { client } = useDashboardDataStore();
   useEffect(() => {
@@ -16,7 +16,11 @@ export default function ChatMessage() {
         if (topic == room) {
           let temp = Message;
           temp.push(message.toString());
+          temp = temp.filter((c, index) => {
+            return temp.indexOf(c) === index;
+          });
           setMessage(temp);
+          setUpdate(Math.random());
           console.log(topic, message.toString());
         }
       });
@@ -37,13 +41,13 @@ export default function ChatMessage() {
             if (A[0] == user) {
               return (
                 <p key={i} style={{ float: "right", clear: "both" }}>
-                  {A[1]}
+                  {A[1] + " -(" + A[0] + ")"}
                 </p>
               );
             } else {
               return (
                 <p key={i} style={{ float: "left", clear: "both" }}>
-                  {A[1]}
+                  {"(" + A[0] + ")- " + A[1]}
                 </p>
               );
             }

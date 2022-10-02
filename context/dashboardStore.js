@@ -66,9 +66,15 @@ export default function DashboardStoreProvider({ children }) {
   const [updateState, setUpdateState] = useState(Math.random());
 
   const mqttConnect = ({ HOST, PORT }) => {
-    const host = `ws://${HOST}:${PORT}/mqtt`;
+    const host = `wss://${HOST}:${PORT}/mqtt`;
     const clientId = "IoTHomeClient-" + Math.random().toString(16);
-    setClient(mqtt.connect(host, { clientId }));
+    setClient(
+      mqtt.connect(host, {
+        clientId,
+        username: "client1",
+        password: "client1pass",
+      })
+    );
   };
 
   const mqttDisconnect = () => {

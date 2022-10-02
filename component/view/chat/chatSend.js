@@ -14,7 +14,7 @@ export default function ChatSend() {
         topic: room,
         payload: user + "#" + text,
       });
-      setUpdate(Math.random());
+      // setUpdate(Math.random());
     } catch (error) {}
   };
   return (
